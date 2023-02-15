@@ -8,9 +8,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
     [Header("Stat")]
     [SerializeField]
     float moveSpeed = 10.0f;
+
+    public bool canMove = true;
 
     private Vector2 lastMove = Vector2.zero;
     private Rigidbody2D rb;
@@ -23,8 +26,12 @@ public class PlayerController : MonoBehaviour
     }
 
     private void FixedUpdate()
-    {
-        Move();
+    {   
+        if (canMove)
+        {
+            Move();
+        }
+        
         
     }
 
@@ -61,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("PlayerTrigger");
+        
     }
     
 }
