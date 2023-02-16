@@ -4,144 +4,97 @@ using UnityEngine;
 
 public class AnimatorPlayer : MonoBehaviour
 {
-    private Animator anim;
-    private bool attackInProgress = false;
-    private bool walkRight = false;
-    private bool walkBack = false;
-    private bool walkLeft = false;
-    private bool walkDown = false;
+    private Animator animator;
 
-    // Start is called before the first frame update
+    private bool walkRight;
+    private bool walkLeft;
+    private bool walkSouth;
+    private bool walkNorth;
+
+    private bool isAttacking;
+
     void Start()
     {
-        anim = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // Gérer l'attaque
-        if (Input.GetKeyDown(KeyCode.Space) && !attackInProgress)
-        {
-            if (walkRight)
-            {
-                anim.SetTrigger("launchAttackRight");
-            }
-            else if (walkLeft)
-            {
-                anim.SetTrigger("launchAttackLeft");
-            }
-            else if (walkBack)
-            {
-                anim.SetTrigger("launchAttackBack");
-            }
-            else if (walkDown)
-            {
-                anim.SetTrigger("launchAttackDown");
-            }
-            else
-            {
-                anim.SetTrigger("launchAttack");
-            }
-            attackInProgress = true;
-        }
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
 
-        if (attackInProgress && anim.GetCurrentAnimatorStateInfo(0).IsName("Character_Idle"))
-        {
-            attackInProgress = false;
-        }
+        walkRight = false;
+        walkLeft = false;
+        walkSouth = false;
+        walkNorth = false;
 
-        // Gérer la marche à droite
-        if (Input.GetKeyDown(KeyCode.D))
+        if (horizontal > 0)
         {
             walkRight = true;
-            walkLeft = false;
-            walkDown = false;
-            walkBack = false;
         }
-        else if (Input.GetKeyUp(KeyCode.D))
-        {
-            walkRight = false;
-        }
-        anim.SetBool("walkRight", walkRight);
-
-        // Gérer la marche en arrière
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            walkBack = true;
-            walkRight = false;
-            walkLeft = false;
-            walkDown = false;
-        }
-        else if (Input.GetKeyUp(KeyCode.Z))
-        {
-            walkBack = false;
-        }
-        anim.SetBool("walkBack", walkBack);
-
-        // Gérer la marche à gauche
-        if (Input.GetKeyDown(KeyCode.Q))
+        else if (horizontal < 0)
         {
             walkLeft = true;
-            walkRight = false;
-            walkDown = false;
-            walkBack = false;
         }
-        else if (Input.GetKeyUp(KeyCode.Q))
-        {
-            walkLeft = false;
-        }
-        anim.SetBool("walkLeft", walkLeft);
 
-        // Gérer la marche vers le bas
-        if (Input.GetKeyDown(KeyCode.S))
+        if (vertical > 0)
         {
-            walkDown = true;
-            walkRight = false;
-            walkBack = false;
-            walkLeft = false;
+            walkNorth = true;
         }
-        else if (Input.GetKeyUp(KeyCode.S))
+        else if (vertical < 0)
         {
-            walkDown = false;
+            walkSouth = true;
         }
-        anim.SetBool("walkDown", walkDown);
 
-        // Handling attack animation
-        if (Input.GetKeyDown(KeyCode.Space) && !attackInProgress)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
+            isAttacking = true;
+            
+
             if (walkRight)
-            {
-                anim.SetTrigger("launchAttackRight");
+            {   
+                
+                animator.SetTrigger("launchAttackRight");
             }
             else if (walkLeft)
             {
-                anim.SetTrigger("launchAttackLeft");
+                animator.SetTrigger("launchAttackLeft");
             }
-            else if (walkBack)
+            else if (walkNorth)
             {
-                anim.SetTrigger("launchAttackBack");
+                animator.SetTrigger("launchAttackNorth");
             }
-            else if (walkDown)
+            else if (walkSouth)
             {
-                anim.SetTrigger("launchAttack");
+                animator.SetTrigger("launchAttackSouth");
             }
-            else
-            {
-                anim.SetTrigger("launchAttack");
-            }
-            attackInProgress = true;
         }
 
-        if (attackInProgress && anim.GetCurrentAnimatorStateInfo(0).IsName("Character_Idle"))
+        //animator.SetBool("walkRight", walkRight);
+        //animator.SetBool("walkLeft", walkLeft);
+        //animator.SetBool("walkSouth", walkSouth);
+        //animator.SetBool("walkNorth", walkNorth);
+
+        if (isAttacking)
         {
-            {
-                attackInProgress = false;
-                Debug.Log("Attack Animation Triggered");
-
-            }
-
+            //animator.SetLayerWeight(1, 1);
         }
+        else
+        {
+            //animator.SetLayerWeight(1, 0);
+        }
+    }
+
+    public void StartAttack()
+    {
+        
+        
+        
+    }
+
+    public void EndAttack()
+    {
+        isAttacking = false;
     }
 }
 
