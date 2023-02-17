@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Wizard
   - Enemy
+  - SwordRight
+  - SwordLeft
+  - SwordNorth
+  - SwordSouth
   layers:
   - Default
   - TransparentFX
@@ -18,7 +22,7 @@ TagManager:
   - Background
   - Foreground
   - detectiontrigger
-  - 
+  - Ennemies
   - 
   - 
   - 

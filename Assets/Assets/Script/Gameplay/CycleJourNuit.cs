@@ -44,7 +44,7 @@ public class CycleJourNuit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("omg");
+        
 
         
             estNuit = false;

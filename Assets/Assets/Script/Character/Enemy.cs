@@ -17,6 +17,8 @@ public class Enemy : MonoBehaviour
     private bool isDead = false;
     private float runTimer = 0f;
     private Vector2 originalPosition;
+    private bool hasTakenDamage = false;
+    private bool tookOneDamage = false;
 
     void Start()
     {
@@ -82,8 +84,15 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        hp -= damage;
-        isRunning = true;
-        animator.SetTrigger("SlimeRedDamage");
+        if (!tookOneDamage)
+        {
+            hp -= damage;
+            isRunning = true;
+            animator.SetTrigger("SlimeRedDamage");
+            tookOneDamage = true;
+        }
     }
 }
+
+
+
