@@ -12,16 +12,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private string walkSouthAnimation = "Character_Walk_South_Animation";
 
     [Header("Stats")]
-    [SerializeField] private float moveSpeed = 10.0f;
-    [SerializeField] private int maxHp = 20;
-    private int currentHp;
+    [SerializeField] private float moveSpeed = 100f;
+    
 
     [Header("Attack")]
     [SerializeField] private int attackDamage = 2;
     [SerializeField] private float attackRange = 1.0f;
 
-    [Header("Respawn")]
-    [SerializeField] private Transform respawnPoint;
+    
 
 
     private Rigidbody2D rb;
@@ -29,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private bool canMove = true;
     private Vector2 lastMove = Vector2.zero;
 
+    
 
   
 
@@ -36,7 +35,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        currentHp = maxHp;
+        
     }
 
     private void Update()
@@ -46,15 +45,7 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    public void TakeDamage(int damage)
-    {
-        currentHp -= damage;
-
-        if (currentHp <= 0)
-        {
-            Respawn();
-        }
-    }
+   
 
     private void Move()
     {
@@ -108,15 +99,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(x, y);
 
     }
-
-
-    public void Respawn()
-    {
-        transform.position = respawnPoint.position;
-        currentHp = maxHp;
-    }
-
-
+    
 }
 
 

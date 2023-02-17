@@ -7,9 +7,19 @@ public class WeakSpot : MonoBehaviour
     [SerializeField] private float healthEnnemy = 10;
     [SerializeField] private Collider2D[] swordColliders;
 
+    public GameObject objectToDestroy;
+
     private void Start()
     {
         
+    }
+
+    private void Update()
+    {
+        if (healthEnnemy <= 0)
+        {
+            Destroy(objectToDestroy);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
