@@ -23,11 +23,6 @@ public class PlayerController : MonoBehaviour
     [Header("Respawn")]
     [SerializeField] private Transform respawnPoint;
 
-    [Header("Sword")]
-    [SerializeField] private Transform swordNorth;
-    [SerializeField] private Transform swordSouth;
-    [SerializeField] private Transform swordLeft;
-    [SerializeField] private Transform swordRight;
 
     private Rigidbody2D rb;
     private Animator anim;
@@ -48,10 +43,7 @@ public class PlayerController : MonoBehaviour
     {
         Move();
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Attack();
-        }
+        
     }
 
     public void TakeDamage(int damage)
@@ -117,56 +109,6 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
-        private void Attack()
-    {
-        Vector2 swordDirection = Vector2.zero;
-
-        if (lastMove.x > 0)
-        {
-            swordDirection = Vector2.right;
-        }
-        else if (lastMove.x < 0)
-        {
-            swordDirection = Vector2.left;
-        }
-        else if (lastMove.y > 0)
-        {
-            swordDirection = Vector2.up;
-        }
-        else if (lastMove.y < 0)
-        {
-            swordDirection = Vector2.down;
-        }
-
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position + (Vector3)swordDirection * attackRange, attackRange, LayerMask.GetMask("Enemies"));
-
-        if (hitEnemies != null)
-        {
-            foreach (Collider2D enemy in hitEnemies)
-            {
-                enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
-            }
-        }
-
-        // Animation de l'attaque
-        if (swordDirection == Vector2.up)
-        {
-            anim.SetTrigger("launchAttackNorth");
-        }
-        else if (swordDirection == Vector2.down)
-        {
-            anim.SetTrigger("launchAttackSouth");
-        }
-        else if (swordDirection == Vector2.right)
-        {
-            anim.SetTrigger("launchAttackRight");
-        }
-        else if (swordDirection == Vector2.left)
-        {
-            anim.SetTrigger("launchAttackLeft");
-        }
-    }
 
     public void Respawn()
     {
