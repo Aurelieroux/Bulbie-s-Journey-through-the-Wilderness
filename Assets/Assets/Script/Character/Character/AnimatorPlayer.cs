@@ -126,6 +126,17 @@ public class AnimatorPlayer : MonoBehaviour
     {
         isAttacking = false;
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy") // Si la collision est avec un ennemi
+        {
+            walkRight = false;
+            walkLeft = false;
+            walkSouth = false;
+            walkNorth = false;
+        }
+    }
 }
 
 
